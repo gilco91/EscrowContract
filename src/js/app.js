@@ -114,13 +114,15 @@ App = {
         }).then(function(result) {
        
           console.log(result.logs[0].args)
-          //  $('.panel-pet').eq(0).find('button').text('Traded').attr('disabled', true);
+          alert('please send money to escrow contract id: '+ result.logs[0].args._tradeAddress)
+          
           return App.markAdopted();
         }).catch(function(err) {
           console.log(err.message);
         });
       });
     }
+    
   },
 
   get_TradeById: function(event) {
