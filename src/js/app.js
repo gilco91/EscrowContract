@@ -112,9 +112,8 @@ App = {
           // Execute adopt as a transaction by sending account
           return EscrowManagerInstance.createTrade(seller_adrress,buyer_adrress,seller_amount,buyer_amount,expired_time,{from: account});
         }).then(function(result) {
-       
-          console.log(result.logs[0].args)
-          alert('please send money to escrow contract id: '+ result.logs[0].args._tradeAddress)
+          alert('please send money to escrow contract address: '+ result.logs[0].args._tradeAddress
+          +" Your contract id is: "+result.logs[0].args._tradeIndex)
           
           return App.markAdopted();
         }).catch(function(err) {
@@ -143,7 +142,10 @@ App = {
         // Execute adopt as a transaction by sending account
         return EscrowManagerInstance.getTradeById(contractId,{from: account});
       }).then(function(result) {
-        console.log(result.logs[0].args)
+        var msg="Contract addr :"+ result.logs[0].args._tradeAddress
+        msg+= "\nContract id is: "+result.logs[0].args._tradeIndex
+        msg+="\nContract balance : "+result.logs[0].args.contractBalance
+        alert(msg)
         return App.markAdopted();
       }).catch(function(err) {
         console.log(err.message);
@@ -171,7 +173,7 @@ App = {
         // Execute adopt as a transaction by sending account
         return EscrowManagerInstance.setAgreement(contractId,{from: account});
       }).then(function(result) {
-        // console.log(result.logs[0].args)
+        alert("Deal is done, The money is back")
         return App.markAdopted();
       }).catch(function(err) {
         console.log(err.message);
