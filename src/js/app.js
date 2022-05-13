@@ -94,6 +94,16 @@ App = {
     var seller_amount = $('#sellerAmount').val();
     var buyer_amount = $('#buyerAmount').val();
     var expired_time = $('#expiredTime').val();
+
+    //--------------------------
+
+
+
+
+
+
+    //--------------------------
+
     
     if(seller_adrress !="" && seller_amount !=""&& seller_amount!="" && expired_time !=""){
 
@@ -112,8 +122,19 @@ App = {
           // Execute adopt as a transaction by sending account
           return EscrowManagerInstance.createTrade(seller_adrress,buyer_adrress,seller_amount,buyer_amount,expired_time,{from: account});
         }).then(function(result) {
-          alert('please send money to escrow contract address: '+ result.logs[0].args._tradeAddress
-          +" Your contract id is: "+result.logs[0].args._tradeIndex)
+          $('#message1').text("Escrow adrress: "+result.logs[0].args._tradeAddress);
+          $('#message2').text("Escrow Id: "+result.logs[0].args._tradeIndex);
+          $('#message3').text("Escrow state: "+result.logs[0].args._step);
+          $('#message4').text("");
+          $('#message5').text("");
+          $('#message6').text("");
+
+          
+          
+          console.log(result.logs[0]);
+          // alert('please send money to escrow contract address: '+ result.logs[0].args._tradeAddress 
+          // +"\n Your contract id is: "+result.logs[0].args._tradeIndex +
+          // "Escrow Contract stat: " +result.logs[0].args._step)
           
           return App.markAdopted();
         }).catch(function(err) {
@@ -142,10 +163,18 @@ App = {
         // Execute adopt as a transaction by sending account
         return EscrowManagerInstance.getTradeById(contractId,{from: account});
       }).then(function(result) {
-        var msg="Contract addr :"+ result.logs[0].args._tradeAddress
-        msg+= "\nContract id is: "+result.logs[0].args._tradeIndex
-        msg+="\nContract balance : "+result.logs[0].args.contractBalance
-        alert(msg)
+        $('#message1').text("Escrow adrress: "+result.logs[0].args._tradeAddress);
+          $('#message2').text("Escrow Id: "+result.logs[0].args._tradeIndex);
+          $('#message3').text("Escrow state: "+result.logs[0].args._step);
+          $('#message4').text("Contract balance " + result.logs[0].args.contractBalance);
+          $('#message5').text("seller paid:" + result.logs[0].args._sellerPaid);
+          $('#message6').text("buyer paid:" + result.logs[0].args._buyerPaid);
+        console.log(result.logs[0]);
+        // var msg="Contract addr :"+ result.logs[0].args._tradeAddress
+        // msg+= "\nContract id is: "+result.logs[0].args._tradeIndex
+        // msg+="\nContract balance : "+result.logs[0].args.contractBalance
+        // msg+="\nEscrow Contract stat : "+result.logs[0].args._step
+        // alert(msg)
         return App.markAdopted();
       }).catch(function(err) {
         console.log(err.message);
