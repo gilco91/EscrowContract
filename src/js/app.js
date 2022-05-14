@@ -89,21 +89,12 @@ App = {
     event.preventDefault();
     // var petId = parseInt($(event.target).data('sellerAddress'));
 
+    var trade_index = $('#tradeIndex').val();
     var seller_adrress = $('#sellerAddress').val();
     var buyer_adrress = $('#buyerAddress').val();
     var seller_amount = $('#sellerAmount').val();
     var buyer_amount = $('#buyerAmount').val();
     var expired_time = $('#expiredTime').val();
-
-    //--------------------------
-
-
-
-
-
-
-    //--------------------------
-
     
     if(seller_adrress !="" && seller_amount !=""&& seller_amount!="" && expired_time !=""){
 
@@ -120,7 +111,7 @@ App = {
           EscrowManagerInstance = instance;
           console.log(EscrowManagerInstance);
           // Execute adopt as a transaction by sending account
-          return EscrowManagerInstance.createTrade(seller_adrress,buyer_adrress,seller_amount,buyer_amount,expired_time,{from: account});
+          return EscrowManagerInstance.createTrade(trade_index,seller_adrress,buyer_adrress,seller_amount,buyer_amount,expired_time,{from: account});
         }).then(function(result) {
           $('#message1').text("Escrow adrress: "+result.logs[0].args._tradeAddress);
           $('#message2').text("Escrow Id: "+result.logs[0].args._tradeIndex);
@@ -129,7 +120,7 @@ App = {
           $('#message5').text("");
           $('#message6').text("");
 
-          
+
           
           console.log(result.logs[0]);
           // alert('please send money to escrow contract address: '+ result.logs[0].args._tradeAddress 

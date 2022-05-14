@@ -18,8 +18,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -32,8 +31,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -65,8 +63,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -79,8 +76,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     }
   ],
   "metadata": "{\"compiler\":{\"version\":\"0.6.1+commit.e6f7d5a4\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"petId\",\"type\":\"uint256\"}],\"name\":\"adopt\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"adopters\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAdopters\",\"outputs\":[{\"internalType\":\"address[16]\",\"name\":\"\",\"type\":\"address[16]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getTest\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"my_string\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Adoption.sol\":\"Adoption\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Adoption.sol\":{\"keccak256\":\"0x9be936788fd3f687e78e6e15ec2b9407629498437705ab938a91f2e6b859a18f\",\"urls\":[\"bzz-raw://23cb47f1934f4761f939102a427008f8ae2fc910682f3adc8d99795d4605b317\",\"dweb:/ipfs/QmVzC74VfPRcwUQgKYry6jsHVadFxedSTiaPwW6uYsb17d\"]}},\"version\":1}",
@@ -367,10 +363,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        857,
-                        858
+                        854,
+                        855
                       ],
-                      "referencedDeclaration": 857,
+                      "referencedDeclaration": 854,
                       "src": "245:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$returns$__$",
@@ -454,7 +450,7 @@
                         "name": "msg",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 854,
+                        "referencedDeclaration": 851,
                         "src": "310:3:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_magic_message",
@@ -1045,10 +1041,10 @@
                                 }
                               ],
                               "overloadedDeclarations": [
-                                857,
-                                858
+                                854,
+                                855
                               ],
-                              "referencedDeclaration": 857,
+                              "referencedDeclaration": 854,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -1262,7 +1258,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 854,
+                                  "referencedDeclaration": 851,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -1563,13 +1559,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x1A1C0fA56C07471BE71f03a839A92aF77512289F",
-      "transactionHash": "0xba2b7e89dee305f86d4df928b222a7d16eaddec425ca2188693fdea21ca383ce"
+      "address": "0x4EC48A2fe08391AF457a2489bCDbEa3af8e5Cae8",
+      "transactionHash": "0x83d6cfdee58d14236dd55b8c6aa68c6688cb9e1be50f398c2f4f0e46c6eb9c3b"
     }
   },
   "schemaVersion": "3.4.7",
-  "updatedAt": "2022-05-12T16:22:04.831Z",
-  "networkType": "ethereum",
+  "updatedAt": "2022-05-14T06:32:54.439Z",
   "devdoc": {
     "methods": {}
   },

@@ -105,7 +105,7 @@ contract EscrowManager {
 
     mapping(uint256 => EscrowStruct) public trades;
 
-    uint256 tradeIndex;
+    // uint256 tradeIndex;
     event TradeStep(
         uint256 _tradeIndex,
         uint256 _step,
@@ -126,6 +126,7 @@ contract EscrowManager {
     );
 
     function createTrade(
+        uint256 tradeIndex,
         address payable seller,
         address payable buyer,
         uint256 sellerAmount,
@@ -149,7 +150,7 @@ contract EscrowManager {
             address(trades[tradeIndex]._escrow),
             trades[tradeIndex]._escrow.getBalance()
         );
-        tradeIndex++;
+        // tradeIndex++;
 
         return "This is a test";
     }
