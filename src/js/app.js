@@ -75,26 +75,63 @@ App = {
     App.contracts.EscrowManager.deployed().then(function(instance) {
       EscrowManagerInstance = instance;
 
-     
-        // {
-        //   $('.panel-pet').eq(i).find('button').text('Success').attr('disabled', true);
-        // }
-      
     }).catch(function(err) {
       console.log(err.message);
     });
   },
 
-  creat_Trade: function(event) {
+  creat_Trade: async function(event) {
     event.preventDefault();
-    // var petId = parseInt($(event.target).data('sellerAddress'));
 
-    var trade_index = $('#tradeIndex').val();
-    var seller_adrress = $('#sellerAddress').val();
-    var buyer_adrress = $('#buyerAddress').val();
-    var seller_amount = $('#sellerAmount').val();
-    var buyer_amount = $('#buyerAmount').val();
+    var trade_index = 0;
+    var description = $('#description').val();
+    var depositSeller = $('#depositSeller').val();
+    var depositBuyer = $('#depositBuyer').val();
+    var walletAddressSeller = $('#walletAddressSeller').val();
+    var walletAddressBuyer = $('#walletAddressBuyer').val();
+    var email = $('#email').val();
     var expired_time = $('#expiredTime').val();
+    var date = new Date();
+    var status = 'wating';
+    var buyerID = '627fe49e580a2def6ec850b0'
+    var creator = '627fe49e580a2def6ec850b0'
+
+    //--Post to backend-------------------------------------------------------
+    const result = await fetch('http://localhost:3000/api/contracts/add', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        description,
+        depositSeller,
+        depositBuyer,
+        walletAddressSeller,
+        walletAddressBuyer,
+        date,
+        email,
+        creator,
+        status,
+        buyerID
+      })
+  }).then((res) => res.json())
+  if (result.error) {
+      alert(result.error);
+  } else if (result.status == 'ok') {
+      alert("succses!")
+  }
+//--Post to backend-------------------------------------------------------
+    console.log(date);
+
+    console.log(trade_index);
+    console.log(walletAddressSeller);
+    console.log(walletAddressBuyer);
+    console.log(depositSeller);
+    console.log(depositBuyer);
+    console.log(expired_time);
+    
+
+
     
     if(seller_adrress !="" && seller_amount !=""&& seller_amount!="" && expired_time !=""){
 
@@ -109,9 +146,8 @@ App = {
         
         App.contracts.EscrowManager.deployed().then(function(instance) {
           EscrowManagerInstance = instance;
-          console.log(EscrowManagerInstance);
           // Execute adopt as a transaction by sending account
-          return EscrowManagerInstance.createTrade(trade_index,seller_adrress,buyer_adrress,seller_amount,buyer_amount,expired_time,{from: account});
+          return EscrowManagerInstance.createTrade(trade_index,walletAddressSeller,walletAddressBuyer,depositSeller,depositBuyer,expired_time,{from: account});
         }).then(function(result) {
           $('#message1').text("Escrow adrress: "+result.logs[0].args._tradeAddress);
           $('#message2').text("Escrow Id: "+result.logs[0].args._tradeIndex);
@@ -120,8 +156,6 @@ App = {
           $('#message5').text("");
           $('#message6').text("");
 
-
-          
           console.log(result.logs[0]);
           // alert('please send money to escrow contract address: '+ result.logs[0].args._tradeAddress 
           // +"\n Your contract id is: "+result.logs[0].args._tradeIndex +
@@ -151,7 +185,7 @@ App = {
       App.contracts.EscrowManager.deployed().then(function(instance) {
         EscrowManagerInstance = instance;
         console.log(EscrowManagerInstance);
-        // Execute adopt as a transaction by sending account
+       
         return EscrowManagerInstance.getTradeById(contractId,{from: account});
       }).then(function(result) {
         $('#message1').text("Escrow adrress: "+result.logs[0].args._tradeAddress);
@@ -161,11 +195,7 @@ App = {
           $('#message5').text("seller paid:" + result.logs[0].args._sellerPaid);
           $('#message6').text("buyer paid:" + result.logs[0].args._buyerPaid);
         console.log(result.logs[0]);
-        // var msg="Contract addr :"+ result.logs[0].args._tradeAddress
-        // msg+= "\nContract id is: "+result.logs[0].args._tradeIndex
-        // msg+="\nContract balance : "+result.logs[0].args.contractBalance
-        // msg+="\nEscrow Contract stat : "+result.logs[0].args._step
-        // alert(msg)
+  
         return App.markAdopted();
       }).catch(function(err) {
         console.log(err.message);
