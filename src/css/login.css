@@ -1,3 +1,11 @@
+.backgroundImg{
+    background-image: url('../images/Transcations_img.png');
+    /* display: fixed; */
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+  }
+
 h1 {
     margin: 2%;
     margin: 15px 25px 50px
@@ -12,8 +20,11 @@ p {
     margin: 25px;
 }
 
-button{
+
+.btn{
+    background-color: #00c2cb !important;
     margin-bottom: 25px;
+    /* color: #fdfefe !important; */
 }
 
 .navbar-brand{
@@ -21,11 +32,32 @@ button{
 }
 
 .child {
-    border: 1px solid rgb(181, 181, 181);
+   
     width: 100%;
 }
 
 .parent {
+    margin-top: 70px;
     display: flex;
 }
 
+.navbar {
+    background-color: #00c2cb;
+}
+
+.navbar-brand {
+    color: #edebeb;
+    font-weight: bold;
+    font-size: 32px !important;
+   
+}
+
+.navbar-subTitel{
+    font-size: 18px !important;
+}
+
+.btn-delete { 
+    background-color: #e6404b !important;
+    margin-right: 30px;
+
+}

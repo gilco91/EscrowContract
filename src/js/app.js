@@ -5,6 +5,7 @@ $(function() {
 });
 
 App = {
+
   web3Provider: null,
   contracts: {},
   
@@ -61,6 +62,23 @@ App = {
   },
 
   bindEvents: function() {
+    
+    const params = new URLSearchParams(window.location.search)
+    for (const param of params) {
+      console.log(param)
+    }
+   
+
+    $('#description').text(" test");
+    $('#email').text(params[1]);
+    $('#sellerAddress').text(params[2]);
+    $('#buyerAddress').text(params[3]);
+    $('#sellerAmount').text(params[4]);
+    $('#buyerAmount').text(params[5]);
+    $('#expiredTime').text(params[6]);
+    $('#buyerAmount').text(params[5]);
+    
+
     $(document).on('click', '.btn-createTrade', App.creat_Trade);
     $(document).on('click', '.btn-escrowBalance', App.get_TradeById);
     $(document).on('click', '.btn-setAgreement', App.set_Agreement);
@@ -88,6 +106,8 @@ App = {
   creat_Trade: function(event) {
     event.preventDefault();
     // var petId = parseInt($(event.target).data('sellerAddress'));
+   
+   
 
     var trade_index = $('#tradeIndex').val();
     var seller_adrress = $('#sellerAddress').val();
@@ -202,5 +222,4 @@ App = {
   },
 
 };
-
 
