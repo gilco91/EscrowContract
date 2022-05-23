@@ -5,7 +5,7 @@ $(function() {
 });
 
 App = {
-
+  params: null,
   web3Provider: null,
   contracts: {},
   
@@ -61,22 +61,28 @@ App = {
     return App.bindEvents();
   },
 
-  bindEvents: function() {
-    
-    const params = new URLSearchParams(window.location.search)
-    for (const param of params) {
-      console.log(param)
-    }
-   
+  getParamsUrl: async function() {
+    App.params = new URLSearchParams(window.location.search)
+      return await App.params;
+  },
 
-    $('#description').text(" test");
-    $('#email').text(params[1]);
-    $('#sellerAddress').text(params[2]);
-    $('#buyerAddress').text(params[3]);
-    $('#sellerAmount').text(params[4]);
-    $('#buyerAmount').text(params[5]);
-    $('#expiredTime').text(params[6]);
-    $('#buyerAmount').text(params[5]);
+
+  bindEvents:  function() {
+    
+    // const params = new URLSearchParams(window.location.search)
+    // for (const param of params) {
+    //   console.log(param[1])
+    // }
+     params = searchToObject()
+
+    console.log(params);
+    $('#description').text(" " + params.description);
+    $('#email').text(" " + params.email);
+    $('#sellerAddress').text(params.walletAddressSeller);
+    $('#buyerAddress').text(params.walletAddressBuyer);
+    $('#sellerAmount').text(params.depositSeller);
+    $('#buyerAmount').text(params.depositBuyer);
+    $('#expiredTime').text(params.date);
     
 
     $(document).on('click', '.btn-createTrade', App.creat_Trade);
@@ -193,7 +199,7 @@ App = {
     });
   },
 
-  set_Agreement: function(event) {
+  set_Agreement:  function(event) {
     event.preventDefault();
 
     var contractId = $('#contractId_getAgreement').val();
@@ -222,4 +228,21 @@ App = {
   },
 
 };
+
+ function searchToObject() {
+  var pairs = window.location.search.substring(1).split("&"),
+    obj = {},
+    pair,
+    i;
+
+  for ( i in pairs ) {
+    if ( pairs[i] === "" ) continue;
+
+    pair = pairs[i].split("=");
+    obj[ decodeURIComponent( pair[0] ) ] = decodeURIComponent( pair[1] );
+  }
+
+  return obj;
+}
+
 
