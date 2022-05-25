@@ -261,11 +261,12 @@ contract EscrowManager {
     }
 
     function checkExpiry(uint256 _index) public view returns (bool success) {
-        uint256 days_left = trades[_index]._escrow.expiredTime();
+        // uint256 days_left = trades[_index]._escrow.expiredTime();
 
-        if (
-            trades[_index]._escrow.deployTime() + (days_left) * (1 days) >
-            block.timestamp
+        if (trades[_index]._escrow.expiredTime()>block.timestamp
+
+            // trades[_index]._escrow.deployTime() + (days_left) * (1 days) >
+            // block.timestamp
         ) {
             return true;
         } else {
