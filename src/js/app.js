@@ -99,12 +99,12 @@ App = {
     });
   },
 
-  creat_Trade: function (event) {
+  creat_Trade:  function (event) {
     event.preventDefault();
 
-    App.params.date = convetDateToTimStamp(App.params.date);
+    var expired_time = convetDateToTimStamp(App.params.date);
     var trade_index = 0;
-    var expired_time = 3;
+    var status = "waiting;";
     var EscrowManagerInstance;
 
     web3.eth.getAccounts(function (error, accounts) {
@@ -113,7 +113,45 @@ App = {
       }
 
       var account = accounts[0];
+//       var description = App.params.description;
+//       var depositSeller = App.params.depositSeller;
+//       var depositBuyer = App.params.depositBuyer;
+//       var walletAddressSeller = App.params.walletAddressSeller;
+//       var walletAddressBuyer = App.params.walletAddressBuyer;
+//       var date = App.params.date;
+//       var email = App.params.email;
+//       var creator = "626ed80d799270f5d99bbd05"
+//       var buyerID = "null"
+//       var authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imltb3JrcmF2aXR6QGdtYWlsLmNvbSIsInVzZXJJZCI6IjYyNmVkODBkNzk5MjcwZjVkOTliYmQwNSIsImlhdCI6MTY1MzQ5NTk0NSwiZXhwIjoxNjUzNDk2ODQ1fQ.tkttyMn0Kwpi_n8Wg_C1ip62VswZ9cvU1WdsmTr6XRw"
 
+
+//  //  --Post to backend-------------------------------------------------------
+//     const result =  fetch('http://localhost:3000/api/contracts/add', {
+//       method: 'POST',
+//       headers: {
+//           'Content-Type': 'application/json',
+//           authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imltb3JrcmF2aXR6QGdtYWlsLmNvbSIsInVzZXJJZCI6IjYyNmVkODBkNzk5MjcwZjVkOTliYmQwNSIsImlhdCI6MTY1MzQ5NzA0MiwiZXhwIjoxNjUzNDk3OTQyfQ.vImRRffRvu9vypHAK71vDEYIRWvvevClOoj0XWLYOY4'
+//       },
+//       body: JSON.stringify({
+//         description,
+//         depositSeller,
+//         depositBuyer,
+//         walletAddressSeller,
+//         walletAddressBuyer,
+//         date,
+//         email,
+//         creator,
+//         status,
+//         buyerID
+//       })
+//   }).then((res) => res.json())
+//   if (result.error) {
+//       alert(result.error);
+//   } else if (result.status == 'ok') {
+//       alert("succses!")
+//   }
+
+      postTransaction()
       App.contracts.EscrowManager.deployed().then(function (instance) {
         EscrowManagerInstance = instance;
         // Execute adopt as a transaction by sending account
@@ -153,11 +191,6 @@ App = {
         $('#message5').text("seller paid:" + result.logs[0].args._sellerPaid);
         $('#message6').text("buyer paid:" + result.logs[0].args._buyerPaid);
         console.log(result.logs[0]);
-        // var msg="Contract addr :"+ result.logs[0].args._tradeAddress
-        // msg+= "\nContract id is: "+result.logs[0].args._tradeIndex
-        // msg+="\nContract balance : "+result.logs[0].args.contractBalance
-        // msg+="\nEscrow Contract stat : "+result.logs[0].args._step
-        // alert(msg)
         return App.markAdopted();
       }).catch(function (err) {
         console.log(err.message);
@@ -217,6 +250,44 @@ function convetDateToTimStamp(date) {
   return newDate.getTime();
 }
 
+async function postTransaction() {
+  var description = App.params.description;
+      var depositSeller = App.params.depositSeller;
+      var depositBuyer = App.params.depositBuyer;
+      var walletAddressSeller = App.params.walletAddressSeller;
+      var walletAddressBuyer = App.params.walletAddressBuyer;
+      var date = App.params.date;
+      var email = App.params.email;
+      var creator = "626ed80d799270f5d99bbd05"
+      var buyerID = "null"
+      console.log("in the function - " + description +"-" + depositSeller + "-"  +email+ "-" + date);
+      var status = "waiting;";
 
+  const result = await fetch('http://localhost:3000/api/contracts/add', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imltb3JrcmF2aXR6QGdtYWlsLmNvbSIsInVzZXJJZCI6IjYyNmVkODBkNzk5MjcwZjVkOTliYmQwNSIsImlhdCI6MTY1MzQ5NzA0MiwiZXhwIjoxNjUzNDk3OTQyfQ.vImRRffRvu9vypHAK71vDEYIRWvvevClOoj0XWLYOY4'
+      },
+      body: JSON.stringify({
+        description,
+        depositSeller,
+        depositBuyer,
+        walletAddressSeller,
+        walletAddressBuyer,
+        date,
+        email,
+        creator,
+        status,
+        buyerID
+      })
+  }).then((res) => res.json())
+  if (result.error) {
+      alert(result.error);
+  } else if (result.status == 'ok') {
+      alert("succses!")
+  }
+
+} 
 
 
